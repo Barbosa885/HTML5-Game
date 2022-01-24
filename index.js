@@ -67,6 +67,8 @@ const keys = {
     },
 }
 
+let scrollOffSet = 0
+
 function animate() {
     requestAnimationFrame(animate)
     c.clearRect(0, 0, canvas.width, canvas.height)
@@ -83,17 +85,22 @@ function animate() {
         player.velocity.x = 0
         
         if (keys.right.pressed) { 
-            platforms.forEach((platform) => {
-                platform.position.x -= 10
-            })
-            
-        } else if (keys.left.pressed) {
+            scrollOffSet += 10
             platforms.forEach((platform) => {
                 platform.position.x += 10
             })
             
+        } else if (keys.left.pressed) {
+            scrollOffSet -= 10
+            platforms.forEach((platform) => {
+                platform.position.x -= 10
+            })    
+        }
+        if (scrollOffSet > 2000) {
+            console.log('Parabéns nerdola')
         }
     }
+
 platforms.forEach((platform) => {
     if (player.position.y + player.height <= platform.position.y && 
         player.position.y + player.height + player.velocity.y >= platform.position.y && 
