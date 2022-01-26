@@ -253,6 +253,10 @@ var genericObjects = [new GenericObject({
   x: -1,
   y: -1,
   img: createImage(_assets_background_png__WEBPACK_IMPORTED_MODULE_2__["default"])
+}), new GenericObject({
+  x: -1,
+  y: -1,
+  img: createImage(_assets_hills_png__WEBPACK_IMPORTED_MODULE_1__["default"])
 })];
 var player = new Player();
 var platforms = [new Platform({
@@ -298,10 +302,16 @@ function animate() {
       platforms.forEach(function (platform) {
         platform.position.x -= 10;
       });
+      genericObjects.forEach(function (genericObject) {
+        genericObject.position.x -= 6;
+      });
     } else if (keys.left.pressed) {
       scrollOffSet -= 10;
       platforms.forEach(function (platform) {
         platform.position.x += 10;
+      });
+      genericObjects.forEach(function (genericObject) {
+        genericObject.position.x += 6;
       });
     }
 

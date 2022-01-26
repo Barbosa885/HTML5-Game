@@ -86,11 +86,18 @@ function createImage(imageSrc) {
 
 const platformImg = createImage(platform)
 
-const genericObjects = [new GenericObject({
-    x: -1,
-    y: -1,
-    img: createImage(background)
-})]
+const genericObjects = [
+    new GenericObject({
+        x: -1,
+        y: -1,
+        img: createImage(background)
+    }),
+    new GenericObject({
+        x: -1,
+        y: -1,
+        img: createImage(hills)
+    })
+]
 
 const player = new Player()
 const platforms = [new Platform({
@@ -136,12 +143,18 @@ function animate() {
             platforms.forEach((platform) => {
                 platform.position.x -= 10
             })
+            genericObjects.forEach((genericObject) =>{
+                genericObject.position.x -= 6
+            })
             
         } else if (keys.left.pressed) {
             scrollOffSet -= 10
             platforms.forEach((platform) => {
                 platform.position.x += 10
             })    
+            genericObjects.forEach((genericObject) => {
+                genericObject.position.x += 6
+            })
         }
         if (scrollOffSet > 2000) {
             console.log('Parabéns nerdola')
