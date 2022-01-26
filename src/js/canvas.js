@@ -1,4 +1,6 @@
 import platform from '../assets/platform.png'
+import hills from '../assets/hills.png'
+import background from '../assets/background.png'
 
 console.log(platform)
 const canvas = document.querySelector(
@@ -59,11 +61,43 @@ class Platform {
     }
 }
 
-const img = new Image()
-img.src = platform
+class GenericObject { 
+    constructor({x, y, img}) {
+        this.position = {
+            x,
+            y
+        }
+        this.img = img
+        this.width = img.width
+        this.height = img.height
+
+    }
+
+    draw() {
+        c.drawImage(this.img, this.position.x, this.position.y)
+    }
+}
+
+function createImage(imageSrc) {
+    const img = new Image()
+    img.src = imageSrc
+    return img 
+}
+
+const platformImg = createImage(platform)
+
+const genericObjects = [new GenericObject({
+    x: -1,
+    y: -1,
+    img: createImage(background)
+})]
 
 const player = new Player()
-const platforms = [new Platform({x: -1, y: 470, img: img}), new Platform({x: img.width - 3, y: 470, img: img})]
+const platforms = [new Platform({
+    x: -1, 
+    y: 470, 
+    img: platformImg
+}), new Platform({x: platformImg.width - 3, y: 470, img: platformImg})]
 
 const keys = {
     right: {
@@ -80,6 +114,11 @@ function animate() {
     requestAnimationFrame(animate)
     c.fillStyle = 'white'
     c.fillRect(0, 0, canvas.width, canvas.height)
+
+    genericObjects.forEach((genericObject) => {
+        genericObject.draw()
+    })
+
     platforms.forEach((platform) => {
         platform.draw()
     })
